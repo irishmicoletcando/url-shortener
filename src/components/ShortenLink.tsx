@@ -12,7 +12,7 @@ const ShortenLink = () => {
   }
 
   return (
-    <div className='mx-24 z-50 p-10 h-36 bg-shorten-desktop bg-very-dark-violet bg-no-repeat bg-center rounded-lg'>
+    <div className='mx-24 z-50 p-10 h-36 bg-shorten-desktop bg-cover bg-very-dark-violet bg-no-repeat bg-center rounded-lg'>
       <form className="flex gap-4 items-center" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex-1">
             <input
