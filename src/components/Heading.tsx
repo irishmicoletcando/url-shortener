@@ -1,4 +1,5 @@
 import illustrationWorking from "../assets/illustration-working.svg"
+import GetStartedButton from "./GetStartedButton"
 
 const Heading = () => {
   return (
@@ -12,9 +13,7 @@ const Heading = () => {
               Build your brand's recognition and get detailed insights on how your links are performing.
             </p>
           </div>
-          <button className="bg-cyan text-white font-bold rounded-full px-8 py-3 hover:bg-light-cyan mt-4 w-fit">
-            Get Started
-          </button>
+          <GetStartedButton />
       </div>
 
       <div className="flex items-center">
