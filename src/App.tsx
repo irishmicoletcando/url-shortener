@@ -1,3 +1,4 @@
+import BoostLinks from "./components/BoostLinks";
 import Footer from "./components/Footer";
 import Heading from "./components/Heading";
 import Navbar from "./components/Navbar";
@@ -9,6 +10,7 @@ export default function App() {
       <Navbar />
       <Heading />
       <ShortenLink />
+      <BoostLinks />
       <Footer />
     </div>
   )
