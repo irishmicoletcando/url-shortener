@@ -1,3 +1,4 @@
+import AdvancedStatistics from "./components/AdvancedStatistics";
 import BoostLinks from "./components/BoostLinks";
 import Footer from "./components/Footer";
 import Heading from "./components/Heading";
@@ -10,6 +11,7 @@ export default function App() {
       <Navbar />
       <Heading />
       <ShortenLink />
+      <AdvancedStatistics />
       <BoostLinks />
       <Footer />
     </div>
