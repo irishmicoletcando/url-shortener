@@ -1,13 +1,15 @@
+import Footer from "./components/Footer";
 import Heading from "./components/Heading";
 import Navbar from "./components/Navbar";
 import ShortenLink from "./components/ShortenLink";
 
 export default function App() {
   return (
-    <div className="font-poppins my-10 overflow-x-hidden">
+    <div className="font-poppins mt-10 overflow-x-hidden">
       <Navbar />
       <Heading />
       <ShortenLink />
+      <Footer />
     </div>
   )
 }
