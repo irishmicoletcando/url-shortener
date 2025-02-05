@@ -15,24 +15,36 @@ const Footer = () => {
         <FooterLinks heading="Company" firstUrl="About" secondUrl="Our Team" thirdUrl="Careers" fourthUrl="Contact" />
       </div>
 
-      <div className="flex flex-row space-x-5">
-        <a href="facebook.com">
+      <div className="flex flex-row space-x-3">
+        <a
+          href="facebook.com"
+          className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-cyan hover:cursor-pointer"
+        >
           <img src={facebook} alt="Facebook Logo" />
         </a>
 
-        <a href="twitter.com">
+        <a
+          href="twitter.com"
+          className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-cyan hover:cursor-pointer"
+        >
           <img src={twitter} alt="Twitter Logo" />
         </a>
 
-        <a href="pinterest.com">
+        <a
+          href="pinterest.com"
+          className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-cyan hover:cursor-pointer"
+        >
           <img src={pinterest} alt="Pinterest Logo" />
         </a>
 
-        <a href="instagram.com">
+        <a
+          href="instagram.com"
+          className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-cyan hover:cursor-pointer"
+        >
           <img src={instagram} alt="Instagram Logo" />
         </a>
-
       </div>
+
     </div>
   )
 }
