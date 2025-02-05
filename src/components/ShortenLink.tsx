@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface urlType {
@@ -6,9 +7,34 @@ interface urlType {
 
 const ShortenLink = () => {
   const {register, handleSubmit, formState: {errors}} = useForm<urlType>();
+  const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<urlType> = data => {
-    console.log(data)
+    const postData = async () => {
+
+      try {
+        const response = await fetch("http://localhost:5000/api/v1/shorten", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: data.url }),
+        });        
+
+        if (!response.ok) {
+          throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        // console.log("Full response: ", responseData);
+        setConvertedUrl(responseData.result_url);
+        console.log("Converted URL: ", responseData.result_url);
+      } catch (error) {
+        console.log("Error: ", error)
+      }
+    } 
+
+    postData();
   }
 
   return (
@@ -18,7 +44,9 @@ const ShortenLink = () => {
             <input
               type="text"
               placeholder="Shorten a link here..."
-              {...register('url', {required: 'Please add a link'})}
+              {...register("url", {
+                required: "Please add a link"
+              })}
               className={`w-full px-6 py-4 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 ${
                 errors.url 
                   ? 'focus:ring-red' 
@@ -33,6 +61,12 @@ const ShortenLink = () => {
         </button>
 
       </form>
+
+      {convertedUrl && (
+        <p className="mt-4 text-white">
+          Converted URL: <a href={convertedUrl} target="_blank" className="text-cyan underline">{convertedUrl}</a>
+        </p>
+      )}
     </div>
   )
 }
