@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useConvertedUrl } from '../context/ConvertedUrlContext';
 
 interface urlType {
   url: string;
@@ -7,7 +7,7 @@ interface urlType {
 
 const ShortenLink = () => {
   const {register, handleSubmit, formState: {errors}} = useForm<urlType>();
-  const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
+  const { setConvertedUrl } = useConvertedUrl();
 
   const onSubmit: SubmitHandler<urlType> = data => {
     const postData = async () => {
@@ -61,12 +61,6 @@ const ShortenLink = () => {
         </button>
 
       </form>
-
-      {convertedUrl && (
-        <p className="mt-4 text-white">
-          Converted URL: <a href={convertedUrl} target="_blank" className="text-cyan underline">{convertedUrl}</a>
-        </p>
-      )}
     </div>
   )
 }
