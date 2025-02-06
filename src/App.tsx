@@ -8,7 +8,7 @@ import ShortenLink from "./components/ShortenLink";
 import { useConvertedUrl } from './context/ConvertedUrlContext';
 
 export default function App() {
-  const { convertedUrl } = useConvertedUrl();
+  const { urls } = useConvertedUrl(); 
 
   return (
     <div className="font-poppins bg-gray/20 overflow-x-hidden">
@@ -16,11 +16,9 @@ export default function App() {
         <Navbar />
         <Heading />
       </div>
-        <ShortenLink />
-      <div className="md:py-20">
-        {convertedUrl && (
-          <ConvertedUrl convertedUrl={convertedUrl} />
-        )}
+      <ShortenLink />
+      <div>
+        {urls.length > 0 && <ConvertedUrl />}
         <AdvancedStatistics />
       </div>
       <BoostLinks />

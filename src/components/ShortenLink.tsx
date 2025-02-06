@@ -10,7 +10,7 @@ interface UrlType {
 
 const ShortenLink = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm<UrlType>();
-  const { setConvertedUrl } = useConvertedUrl();
+  const { setUrls  } = useConvertedUrl();
   
   const inputtedUrl = useWatch<UrlType>({
     control,
@@ -49,28 +49,17 @@ const ShortenLink = () => {
 
       const responseData = await response.json();
       const shortenedUrl = responseData.result_url;
-      setConvertedUrl(shortenedUrl);
 
-      // Get the current list of URLs from localStorage
-      const savedUrls = localStorage.getItem("inputtedUrl");
-      const urls = savedUrls ? JSON.parse(savedUrls) : [];
+      // Get the current list of URLs from context
+      const savedUrls = JSON.parse(localStorage.getItem("inputtedUrl") || "[]");
 
-      // Find the URL pair that was just added and update its shortened URL
-      const lastUrlPair = urls.find(
-        (pair: { originalUrl: string; shortenedUrl: string }) => pair.originalUrl === data.url
-      );
-
-      // Update the shortened URL
+      // Update the last URL with the shortened URL
+      const lastUrlPair = savedUrls.find((pair: { originalUrl: string; shortenedUrl: string }) => pair.originalUrl === data.url);
       if (lastUrlPair) {
         lastUrlPair.shortenedUrl = shortenedUrl;
-
-        // Save the updated list of URL pairs
-        localStorage.setItem("inputtedUrl", JSON.stringify(urls));
-      } else {
-        console.log("URL pair not found.");
+        setUrls(savedUrls);  // Update the context
       }
 
-      console.log("Converted URL: ", shortenedUrl);
       reset();
     } catch (error) {
       console.log("Error: ", error);

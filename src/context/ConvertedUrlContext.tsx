@@ -1,8 +1,13 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+
+interface UrlPair {
+  originalUrl: string;
+  shortenedUrl: string;
+}
 
 interface ConvertedUrlContextType {
-  convertedUrl: string | null;
-  setConvertedUrl: (url: string | null) => void;
+  urls: UrlPair[];
+  setUrls: (urls: UrlPair[]) => void;
 }
 
 const ConvertedUrlContext = createContext<ConvertedUrlContextType | undefined>(undefined);
@@ -20,10 +25,19 @@ interface ConvertedUrlProviderProps {
 }
 
 export const ConvertedUrlProvider: React.FC<ConvertedUrlProviderProps> = ({ children }) => {
-  const [convertedUrl, setConvertedUrl] = useState<string | null>(null);
+  const [urls, setUrls] = useState<{ originalUrl: string; shortenedUrl: string }[]>(() => {
+    // Initialize state from localStorage
+    const savedUrls = localStorage.getItem("inputtedUrl");
+    return savedUrls ? JSON.parse(savedUrls) : [];
+  });
+
+  useEffect(() => {
+    // Sync the state with localStorage
+    localStorage.setItem("inputtedUrl", JSON.stringify(urls));
+  }, [urls]);
 
   return (
-    <ConvertedUrlContext.Provider value={{ convertedUrl, setConvertedUrl }}>
+    <ConvertedUrlContext.Provider value={{ urls, setUrls }}>
       {children}
     </ConvertedUrlContext.Provider>
   );
