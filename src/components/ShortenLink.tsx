@@ -10,7 +10,7 @@ interface UrlType {
 
 const ShortenLink = () => {
   const { register, handleSubmit, reset, formState: { errors }, control } = useForm<UrlType>();
-  const { setUrls  } = useConvertedUrl();
+  const { setUrls } = useConvertedUrl();
   
   const inputtedUrl = useWatch<UrlType>({
     control,
@@ -35,20 +35,14 @@ const ShortenLink = () => {
 
   const onSubmit: SubmitHandler<UrlType> = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/shorten", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: data.url }),
-      });
+      // Calling your API to shorten the URL
+      const response = await fetch("https://tinyurl.com/api-create.php?url=" + encodeURIComponent(data.url));
 
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
       }
 
-      const responseData = await response.json();
-      const shortenedUrl = responseData.result_url;
+      const shortenedUrl = await response.text();
 
       // Get the current list of URLs from context
       const savedUrls = JSON.parse(localStorage.getItem("inputtedUrl") || "[]");
@@ -60,7 +54,7 @@ const ShortenLink = () => {
         setUrls(savedUrls);  // Update the context
       }
 
-      reset();
+      reset();  // Reset the form after successful shortening
     } catch (error) {
       console.log("Error: ", error);
     }
