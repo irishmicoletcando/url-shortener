@@ -6,8 +6,10 @@ const Navbar = () => {
 
   // Close the menu when clicking outside of it
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isOpen && !event.target.closest(".navbar")) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+
+      if (isOpen && target && !target.closest(".navbar")) {
         setIsOpen(false);
       }
     };
