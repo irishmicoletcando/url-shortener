@@ -1,13 +1,26 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm, useWatch } from 'react-hook-form'
 import { useConvertedUrl } from '../context/ConvertedUrlContext';
+import { useEffect } from 'react';
 
 interface urlType {
   url: string;
+  inputtedUrl: string;
 }
 
 const ShortenLink = () => {
-  const {register, handleSubmit, formState: {errors}} = useForm<urlType>();
+  const {register, handleSubmit, reset, formState: {errors}, control} = useForm<urlType>();
   const { setConvertedUrl } = useConvertedUrl();
+  
+  const inputtedUrl = useWatch<urlType>({
+    control, 
+    name: "url"
+  });
+
+  useEffect(() => {
+    if (inputtedUrl) {
+      localStorage.setItem("inputtedUrl", inputtedUrl)
+    }
+  }, [inputtedUrl])
 
   const onSubmit: SubmitHandler<urlType> = data => {
     const postData = async () => {
@@ -29,6 +42,7 @@ const ShortenLink = () => {
         // console.log("Full response: ", responseData);
         setConvertedUrl(responseData.result_url);
         console.log("Converted URL: ", responseData.result_url);
+        reset();
       } catch (error) {
         console.log("Error: ", error)
       }
@@ -65,4 +79,4 @@ const ShortenLink = () => {
   )
 }
 
-export default ShortenLink
+export default ShortenLink;
