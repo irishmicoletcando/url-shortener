@@ -8,6 +8,6 @@ createRoot(document.getElementById('root')!).render(
   <ConvertedUrlProvider>
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   </ConvertedUrlProvider>
 )
