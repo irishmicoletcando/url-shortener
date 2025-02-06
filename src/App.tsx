@@ -11,16 +11,20 @@ export default function App() {
   const { convertedUrl } = useConvertedUrl();
 
   return (
-    <div className="font-poppins mt-10 overflow-x-hidden">
-      <Navbar />
-      <Heading />
-      <ShortenLink />
-      {convertedUrl && (
-        <ConvertedUrl convertedUrl={convertedUrl} />
-      )}
-      <AdvancedStatistics />
+    <div className="font-poppins overflow-x-hidden">
+      <div className="mt-10">
+        <Navbar />
+        <Heading />
+      </div>
+        <ShortenLink />
+      <div className="bg-gray/50 md:py-20">
+        {convertedUrl && (
+          <ConvertedUrl convertedUrl={convertedUrl} />
+        )}
+        <AdvancedStatistics />
+      </div>
       <BoostLinks />
       <Footer />
     </div>
-  )
+  );
 }
